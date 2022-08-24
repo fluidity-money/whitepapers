@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{appendix}
+\usepackage{authblk}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\hypersetup{
+ colorlinks=true,
+ linkcolor = black,
+ citecolor = black}
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+\addbibresource{biblio.bib}
+
+\theoremstyle{definition}
+\newtheorem{exmp}{Example}
+
+\captionsetup[figure]{labelfont={bf},name={Fig.},labelsep=period}
+
+\pagestyle{plain}
+
+\title{\vspace{-1.0cm}Fluidity Money: Economics and Monetary Policy}
+\author[]{Erik Brauer}
+\author[]{Shahmeer Chaudhry}
+\author[]{Alexander Baigent}
+\affil[]{Fluidity Money}
+\date{October 2021} 
+
+\begin{document}
+
+\maketitle
+
+\input{content/abstract}
+
+\input{content/introduction}
+
+\newpage
+
+\input{content/attack}
+
+\newpage
+
+\input{content/trf}
+
+\newpage
+
+\input{content/esc}
+
+\newpage
+
+\input{content/drawing}
+
+\newpage
+
+\input{content/monetarypolicy}
+
+\newpage
+
+\section*{Acknowledgements}
+
+We would like to thank the RMIT Blockchain Hub\footnote{\url{https://rmitblockchain.io/}} for their review of this paper and their comprehensive feedback.
+
+\newpage
+
+\printbibliography
+
+\end{document}

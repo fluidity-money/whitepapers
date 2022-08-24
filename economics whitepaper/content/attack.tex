@@ -1,0 +1,41 @@
+\section{Cyclic Transaction Attack}
+
+To mitigate abuse of the system, we investigate different attack vectors and how to dampen their effects on the overall integrity of the protocol. 
+
+Consider a risk neutral adversary sending funds in a periodic or random pattern with the goal of increasing their chances of receiving dividends by cheating the system. We explore different strategies to mitigate this attack, one of which we will highlight in the following section.
+
+\subsection{Optimistic Solution}
+
+We can calculate the expected yield after $n$ transactions of an adversary trying to attack the system with a sybil-like or cyclical transaction pattern as follows:
+
+\begin{equation}
+    \frac{\textsc{gain}-\textsc{loss}}{S_0} = \textsc{yield},
+\end{equation}
+
+where $S_0$ is the starting capital and $\textsc{gain}(w,p)$ is a function of the payouts and the associated probabilities, which describes the expected gains with \cite{feller}
+
+\begin{equation}
+    \textsc{gain} = n \cdot \mu = n \sum_{m=1}^M w_m p_m,
+\end{equation}
+
+where $n$ is the number of transactions and $M$ describes the number of divisions or "dividend tiers". $\textsc{loss}$ can be derived recursively as follows:
+
+\begin{equation}
+    \textsc{loss} = S_0-S_n = 
+    \begin{dcases} 
+      n \cdot g & f = 0 \\
+      \frac{1}{f}(g+fS_0-fg)(1-(1-f)^n) & f > 0 \\
+    \end{dcases},
+\end{equation}
+
+where 
+
+\begin{equation}
+    S_n = (S_{n-1}-g)(1-f), \: S_n > 0.
+\end{equation}
+
+$g$ is the associated gas fee and $f$ is an extra dynamic fee that is deducted after the static gas fee (e.g. the liquidity provider fee on AMMs like Uniswap). It is reasonable to suppose that an attacker will always choose platforms with the lowest fees, i.e. without dynamic fees, henceforth we will assume the worst-case scenario where $f=0$.
+
+The objective of the optimistic solution is to keep the expected yield of an attacker below a certain percentage, which we can achieve by setting $\mu \leq g$ for every transaction. To obtain the vector $w_m$, we find a payout function that returns the payouts for a given reward pool, divisions and protocol parameters and that satisfies the aforementioned condition for the expected value. We derive this function in the following section. 
+
+Finally, in the case of an attacker reusing their rewards, it is trivial to see that their chance of ruin will always be certain if the expected value for every transaction is below or equal to zero, i.e. $\mu \leq g$. \cite{gambler}
