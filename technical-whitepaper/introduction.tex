@@ -1,0 +1,23 @@
+\section{Introduction}
+
+Existing decentralised finance incentivises leaving interest-bearing products "idle" - sitting in an account accruing interest. The majority of the world's population lives paycheck-to-paycheck and cannot afford to leave their money in an inaccessible state. This demographic is unable to lift itself out of poverty on the back of these instruments and is unable to participate in the financial system beyond simple banking. 
+
+Fluid Assets expose this demographic to decentralised finance without any unsystematic risk to their principal. Each transaction exposes the sender and receiver to the potential to receive a non-trivial amount. The amount and likelihood of receiving rewards is determined by an off-chain process with degrees of centralisation. Strategies for distributing the randomness generation are explored alongside tools for managing complexity and weaning the current strategy off the Optimistic Solution.
+
+\subsection{Design considerations}
+
+Fluidity's UX necessitates the following constraints:
+
+\begin{itemize}
+\item \textit{No fees/overhead post minting}
+
+No additional fees should be taken from the users during the transfer of Fluid Assets.
+
+\item \textit{Instant rewards}
+
+The discovery of a win and the payout (the redemption of a reward) should happen immediately with a degenerative case of later. Optimistic processes are avoided so as to not compromise on this user story.
+
+\item \textit{No special software}
+
+Special wallet software is not required to use the technology. The UX must remain consistent regardless of the underlying wallet.
+\end{itemize}

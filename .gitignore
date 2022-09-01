@@ -1,2 +1,6 @@
-economics.pdf
-technical.pdf
+**/*.log
+**/*.out
+**/*.pdf
+**/*.aux
+**/*.bcf
+**/*.xml

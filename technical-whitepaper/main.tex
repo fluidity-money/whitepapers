@@ -1,0 +1,57 @@
+
+\documentclass{article}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{authblk}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{hyperref}
+\hypersetup{
+ colorlinks}
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+
+\addbibresource{sample.bib}
+
+\theoremstyle{definition}
+\newtheorem{exmp}{Example}[section]
+
+\title{Fluidity Money: Technical Whitepaper}
+\author[]{Alexander Baigent}
+\author[]{Erik Brauer}
+\author[]{Shahmeer Chaudhry}
+\affil[]{Fluidity Money}
+\date{November 2021}
+
+\begin{document}
+
+\maketitle
+
+\input{abstract}
+
+\input{introduction}
+
+\input{previousworks}
+
+\input{currentdesign}
+
+%\newpage
+
+%\input{discussion}
+
+\input{issues}
+
+\input{alternativearchitecture}
+
+\input{futuredesignconsiderations}
+
+\newpage
+
+\printbibliography
+
+\end{document}

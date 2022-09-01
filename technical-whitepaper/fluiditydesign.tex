@@ -1,0 +1,17 @@
+
+\section{Fluidity Money Design}
+
+Fluidity Money tokens (Fluid Tokens) are wrapped 1-to-1 to their principal tokens. These principal tokens are taken and lent via Compound and other interest-bearing platforms at no risk to the initial outlay. This interest makes up the "prize pool", a pool of winnings paid out with a fixed probability on each transaction.
+Each implementation has the same user experience of taking an existing token, lending it on an interest-generating source and converting it into its Fluid Token form. Each token is backed 1-to-1 by the principal amount. Confirmation-time slow implementations differ from their lower-time competition in the selection of winners. Fluidity's Ethereum implementation currently uses an off-chain surveillance system of centralised randomness sourcing. The implementation on the Polygon/MATIC chain uses Chainlink's VRF product for an entirely on-chain approach and the implementation for the Solana blockchain uses a mixture of these approaches.
+
+\subsection{Ethereum Implementation}
+
+Each Ethereum-based transaction is tracked by Fluidity Money servers which use random.org to get a random number. This random number, an RSA digest (signed by Fluidity), an identifier to verify the randomness came from random.org and the transaction hash are sent to a pool of "workers". These workers compare the randomness with the transaction hash to determine if a winner has been found. If they determine a winner should be paid out, they compete with each other to call the contract as soon as possible for a cut of the winnings.
+
+\subsection{Polygon Implementation}
+
+Polygon, with its lower block confirmation times makes it a good fit for using Chainlink's VRF and a more on-chain approach. Transactions are "spooled" in a buffer for 5 blocks to avoid the consequences of chain reorganisations. The contract is then called to use VRF to get a random number to compare against the transactions' hash of parameters. This is facilitated using worker infrastructure run magnanimously by Fluidity with the costs borne by the DAO.
+
+\subsection{Solana Implementation}
+
+Solana, like Polygon, features lower block confirmation times. Solana however lacks Chainlink VRF, requiring in part reusing infrastructure from the Ethereum implementation. Previously Switchboard Solana Oracle's offering was considered with our self-hosted random number generator, but Chainlink are releasing their offering on Solana soon, which can perform this function.
