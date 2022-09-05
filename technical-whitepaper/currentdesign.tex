@@ -1,0 +1,49 @@
+
+\section{Current Design}
+\begin{center}
+\includegraphics[width=11cm]{simplistic.png}
+\end{center}
+\subsection{Off-chain worker infrastructure}
+
+Fluidity Money is powered by off-chain worker and randomness technologies. In the current iteration randomness servers ran magnanimously by the DAO observe transactions on-chain and generate randomness. Server randomness, signed, is then relayed via broadcast to a group of off-chain workers. The DAO servers source the current status of the APY and ATX of the underlying asset via an oracle that is supplied per transaction.
+
+These off-chain workers are ran externally to Fluidity DAO. Workers receive randomness and compare it against their implementation of the Drawing Mechanism. Workers, upon realising that a winner was discovered, take the signed randomness, the block data, a Merkle-Patricia proof and relay it to the contract on-chain. The proof verifies the transaction was made in the last 256 blocks and the inputs are compared to determine if a winner should be paid out. If a winner was found, the contract pays the worker a small fee for their efforts and rewards the winner accordingly.
+
+\subsection{Contract design}
+
+Fluidity Ethereum contracts follow a standard factory pattern, with the following functions supported on the children:
+
+\begin{lstlisting}
+
+function erc20In(uint amount) public returns (uint);
+
+function erc20Out(uint amount) public;
+
+function rewardPoolAmount() public returns (uint);
+
+function reward(
+    uint blockIdx,
+    uint256 idx,
+    bytes memory proofBlob,
+    bytes memory rngBlob,
+    bytes memory rngSig
+) public;
+
+function verifyRewardReceipt(
+    bytes32 blockHash,
+    bytes memory proofBlob,
+    address tokenAddr,
+    bytes32 eventHash
+) public pure returns (uint256, bytes32, bytes32);
+
+function verifyRng(
+    bytes memory rngRlp,
+    bytes memory rngSig
+) public view returns (
+    bytes32 blockHash,
+    uint txIndex,
+    uint32 randomNumber,
+    uint32 probability
+);
+
+\end{lstlisting}

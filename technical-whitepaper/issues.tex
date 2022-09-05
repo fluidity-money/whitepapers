@@ -1,0 +1,6 @@
+
+\section{Issues}
+
+Fluidity 0.1's over-dependence on centralised randomness and APY/ATX data is a source of risk for the protocol. An attacker could breach Fluidity DAO servers and distort the production of randomness to favour a well-crafted block and transaction to win a prize.
+
+Off-chain surveillance of transactions disincentivises the immediate payout of small amounts during periods of heightened gas expenses. As a transaction is made, if the gas fees exceed the worker reward payout, there is no incentive to trigger the contract interaction that rewards the user. Currently, this winning transaction is able to be rewarded in the future, with the only requirements being the proof that the transaction was made. This uncertainty not covered in the current modelling could present some issues undiscovered.

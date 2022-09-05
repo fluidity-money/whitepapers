@@ -1,0 +1,19 @@
+
+\section{Alternative architecture}
+
+\subsection{Purely on-chain}
+
+A purely on-chain architecture is considered. Each transaction is paired with the use of a Verifiable Random Function \cite{vrf}. Issues with this include the high cost overhead, with each transaction using Chainlink VRF \cite{link} costing 2 LINK (not including Gwei) on Ethereum. It adds an additional delay with fulfillment of a request for randomness taking extra blocks to get information on-chain. These downsides violate the first UX requirement aforementioned, no overhead.
+
+\subsection{Sidechain and two-way peg}
+
+A sidechain with a two-way peg is considered. Assets wrapped are transferred to a peg, with miner infrastructure powering the sidechain being aware of the two layers. Ownership of funds is redeemable by parties on the main chain. In a cross-chain context funds can be accessed this way with money moving into the peg. Additional costs in this case are generated due to the travel expenses of subsidising workers to maintain surveillance of both platforms, compromising on the extra fees constraint.
+
+\subsection{Optimistic approach}
+
+To reduce overhead for a worker calling the contract to redeem a winning transaction (a redeeming worker), an optimistic approach is considered. Unlike the current approach taken, this mechanism does not include the immediate submission of a Merkle-Patricia proof. During the calling of the contract redeeming a winner, collateral is supplied by the callee. This collateral is held for a holding period of 10-15 blocks (as an example). At the end of this period a winning payout is made to the user who would have received a prize. At any time during this holding period another worker may trigger a fraud check, by requesting the submission of a proof from the originating reedeming worker. The validating worker requesting the fraud check must also submit a form of collateral to be slashed in the event of them being incorrect. This approach increases the margin available to the workers redeeming prizes on behalf of winning users. This approach is not taken due to the added complexity in the implementation and the breaking of the UX story of immediate prizes being won (without a preferred wallet with a form of UI indirection). Aspects of this approach are explored in the future design section to reduce the overhead of this validation phase.
+
+\subsection{State channel}
+
+State channels are considered. Money moved into the state channel can be spent and moved. An on-chain contract is used as the process that verifies if fraud took place, burning Fluid Assets accordingly. The challenge is that while state channel technology can be useful for high frequency contract interactions, it suffers when used in this context. Rollups and the like can be matched functionally to an optimistic process, with a single contract call reconciling state off-chain matching optimistic UX considered for future design. It could present a new challenge for ensuring utility for the platform, as new technical requirements have been established.
+
